@@ -9,7 +9,7 @@ class ClientIn(BaseModel):
     firstname: str = Field(..., title='First name', max_length=30)
     patronymic: str = Field(..., title='Patronymic', max_length=30)
     birthday: datetime.date = Field(..., title='Birthday')
-    phone: int = Field(..., title='Phone number')
+    phone: str = Field(..., title='Phone number', max_length=12)
     email: EmailStr = Field(..., title='Email', max_length=50)
 
 

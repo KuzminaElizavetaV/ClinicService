@@ -15,7 +15,7 @@ clients = sqlalchemy.Table(
     sqlalchemy.Column("firstname", sqlalchemy.String(30), nullable=False),
     sqlalchemy.Column("patronymic", sqlalchemy.String(30), nullable=True),
     sqlalchemy.Column("birthday", sqlalchemy.Date, nullable=False),
-    sqlalchemy.Column("phone", sqlalchemy.BigInteger, nullable=False),
+    sqlalchemy.Column("phone", sqlalchemy.String(12), nullable=False),
     sqlalchemy.Column("email", sqlalchemy.String(50), unique=True, nullable=False),
 )
 
