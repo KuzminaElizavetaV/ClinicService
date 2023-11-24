@@ -1,9 +1,8 @@
 import databases
 import sqlalchemy
 from settings import settings
+from os import environ
 
-DATABASE_URL = settings.DATABASE_URL
-database = databases.Database(DATABASE_URL)
 metadata = sqlalchemy.MetaData()
 
 clients = sqlalchemy.Table(
@@ -39,7 +38,15 @@ consultations = sqlalchemy.Table(
     sqlalchemy.Column("description", sqlalchemy.String(300), nullable=False),
 )
 
-engine = sqlalchemy.create_engine(
-    DATABASE_URL, connect_args={"check_same_thread": False}
-)
+TESTING = environ.get("TESTING")
+
+if TESTING:
+    TEST_DATABASE_URL = settings.TEST_DATABASE_URL
+    database = databases.Database(TEST_DATABASE_URL)
+    engine = sqlalchemy.create_engine(TEST_DATABASE_URL, connect_args={"check_same_thread": False})
+else:
+    DATABASE_URL = settings.DATABASE_URL
+    database = databases.Database(DATABASE_URL)
+    engine = sqlalchemy.create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
+
 metadata.create_all(engine)
